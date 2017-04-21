@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["reednj@gmail.com"]
 
   spec.summary       = "Create a non-bare remote ready to accept pushes for deployment"
-  spec.homepage      = "http://github.com/reednj/git-make_mirror"
+  spec.homepage      = "https://github.com/reednj/git-make_mirror"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
