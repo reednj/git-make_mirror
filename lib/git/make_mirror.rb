@@ -12,7 +12,12 @@ module Git
 				end
 
 				self.create_repository
+				self.copy_hook
 			
+			end
+
+			def local_hooks_dir
+				@hooks_dir ||= File.join(File.dirname(__FILE__), 'hooks')
 			end
 
 			def remote
@@ -35,6 +40,13 @@ module Git
 					'git init',
 					'git config receive.denyCurrentBranch ignore'
 				]
+			end
+
+			def copy_hook
+				local_hook_file = File.join local_hooks_dir, 'post-receive.rb'
+				remote_hook_file = File.join remote[:path], '.git/hooks/post-receive'
+				server.scp local_hook_file, remote_hook_file
+				server.exec "chmod 775 #{remote_hook_file}"
 			end
 		end
 
