@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'git/make_mirror'
+Git::MakeMirror::App.new.main
