@@ -12,7 +12,9 @@ module Git
 					opt :remote, "create a remote in the local repository", :type => :string
 					opt :push, "push to the newly created mirror"
 				end
-
+				
+				Trollop::educate if remote_url.nil? || remote_url == ''
+				
 				git_remote_name = nil
 
 				puts "creating remote repository"
@@ -42,7 +44,7 @@ module Git
 			end
 
 			def remote_url
-				ARGV.last.strip
+				(ARGV.last || '').strip
 			end
 
 			def remote
