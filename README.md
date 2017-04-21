@@ -1,39 +1,28 @@
-# Git::MakeMirror
+# git make-mirror
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/git/make_mirror`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+git-make_mirror is a utility for easily creating *non-bare* pushable remotes. This is very useful for creating deployment endpoints.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'git-make_mirror'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install git-make_mirror
+    gem install git-make_mirror
 
 ## Usage
 
-TODO: Write usage instructions here
+    git make-mirror [options] <remote_name>
 
-## Development
+For example the following will create a empty repository on the host given, and set the options so that it can be pushed to, even though it is not bare. A post-receive hook will reset the working directory to HEAD after every push.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake true` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    git make-mirror reednj@twtxt.xyz:code/hello.git
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+When running the command from a git repository, the `-p` option will immediately push the current repository to the remote.
 
-## Contributing
+    # will immediately push the current repo into hello.git
+    git make-mirror -p reednj@twtxt.xyz:code/hello.git
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/git-make_mirror.
+The `-r` option will add the remote to the current repository with the provided name.
 
+    # after running the repository will have the new remote 'prod'
+    git make-mirror -r prod reednj@twtxt.xyz:code/hello.git
 
 ## License
 
